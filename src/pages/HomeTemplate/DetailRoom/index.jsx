@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchListSeat } from "./sliceBooking";
-import { Link, useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import Seat from "./Seat";
 import ThongTinRap from "../DetailMovies/ThongTinRap";
 import ThongTinVe from "./ThongTinVe";
@@ -48,6 +48,16 @@ export default function DatVe() {
             <p>Màn Hình</p>
           </div>
           {renderRow()}
+          <div className="flex justify-center gap-4 mt-4">
+            <div className="flex items-center">
+              <div className="w-6 h-6 bg-gray-500 rounded-sm mr-2"></div>
+              <span className="text-gray-500 text-sm">Ghế đã đặt</span>
+            </div>
+            <div className="flex items-center">
+              <div className="w-6 h-6 bg-green-500 rounded-sm mr-2"></div>
+              <span className="text-green-700 text-sm">Ghế đang chọn</span>
+            </div>
+          </div>
         </div>
 
         <div className="bg-gray-800 p-6 rounded-lg shadow-lg text-white">
@@ -85,7 +95,7 @@ export default function DatVe() {
           </table>
           <Link
             to="/"
-            className="w-full mt-4 bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-lg"
+            className="w-full mt-4 bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-lg text-center block"
           >
             Đặt vé
           </Link>
