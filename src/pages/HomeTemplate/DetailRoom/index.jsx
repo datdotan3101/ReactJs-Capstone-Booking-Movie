@@ -1,65 +1,94 @@
-import React from "react";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 import { fetchListSeat } from "./sliceBooking";
+import { Link, useParams } from "react-router-dom";
+import Seat from "./Seat";
+import ThongTinRap from "../DetailMovies/ThongTinRap";
+import ThongTinVe from "./ThongTinVe";
 
 export default function DatVe() {
   const state = useSelector((state) => state.ListSeatReducer);
-  const { data } = state;
-  console.log(data);
-
-  const { id } = useParams;
-
+  const { id } = useParams();
+  const { listSeatSelected } = state;
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     dispatch(fetchListSeat(id));
-  }, []);
+  }, [dispatch, id]);
 
   const renderRow = () => {
-    if (!data || !data.danhSachGhe) return null; // Kiểm tra dữ liệu trước khi render
-
+    const { data } = state;
     return (
-      <div className="flex gap-4 flex-wrap">
-        {data.danhSachGhe.map((item) => (
-          <button
-            key={item.maGhe}
-            className="px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300"
-          >
-            {item.tenGhe}
-          </button>
+      <div className="grid grid-cols-10 gap-4 p-5 bg-gray-900 rounded-lg shadow-lg">
+        {data?.danhSachGhe.map((seat) => (
+          <Seat key={seat.maGhe} seat={seat} />
         ))}
       </div>
     );
   };
 
+  const renderThongTinVe = () => {
+    const { data } = state;
+    if (!data?.thongTinPhim) return null;
+    return <ThongTinVe movie={data.thongTinPhim} />;
+  };
+
+  const totalPrice = () => {
+    return listSeatSelected.reduce((total, seat) => total + seat.giaVe, 0);
+  };
+
   return (
-    <div className="mt-20">
-      <h1>Phòng vé</h1>
-      <div className="flex">
-        {/* màn hình  */}
-        <div>
-          <div className="space-x-12">
-            <span></span>
-            <span>1</span>
-            <span>2</span>
-            <span>3</span>
-            <span>4</span>
-            <span>5</span>
-            <span>6</span>
-            <span>7</span>
-            <span>8</span>
-            <span>9</span>
-            <span>10</span>
-            <span>11</span>
-            <span>12</span>
+    <div className="mt-20 container mx-auto p-6">
+      <h1 className="text-3xl font-bold text-center text-white mb-6">
+        Phòng vé
+      </h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+        <div className="flex flex-col items-center">
+          <div className="bg-gray-800 text-white p-3 rounded-lg mb-4 text-center w-full max-w-lg">
+            <p>Màn Hình</p>
           </div>
           {renderRow()}
         </div>
-        {/* Thông tin ghế  */}
-        <div>
-          <h1>Ghế đang chọn</h1>
+
+        <div className="bg-gray-800 p-6 rounded-lg shadow-lg text-white">
+          {renderThongTinVe()}
+          <table className="w-full text-sm text-gray-300">
+            <thead className="text-xs uppercase bg-gray-700">
+              <tr>
+                <th className="px-6 py-3">Ghế</th>
+                <th className="px-6 py-3">Giá</th>
+              </tr>
+            </thead>
+            <tbody>
+              {listSeatSelected.map((seat) => (
+                <tr
+                  key={seat.maGhe}
+                  className="bg-gray-900 border-b border-gray-700"
+                >
+                  <td className="px-6 py-4 font-medium text-white">
+                    {seat.tenGhe}
+                  </td>
+                  <td className="px-6 py-4">
+                    {seat.giaVe.toLocaleString()} VND
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+            <tfoot>
+              <tr className="bg-gray-700">
+                <td className="px-6 py-4 font-bold">Tổng cộng:</td>
+                <td className="px-6 py-4 font-bold">
+                  {totalPrice().toLocaleString()} VND
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+          <Link
+            to="/"
+            className="w-full mt-4 bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-lg"
+          >
+            Đặt vé
+          </Link>
         </div>
       </div>
     </div>

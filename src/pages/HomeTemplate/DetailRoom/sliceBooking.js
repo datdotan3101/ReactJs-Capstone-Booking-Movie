@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import api from "../../../services/api";
+import { act } from "react";
 
 export const fetchListSeat = createAsyncThunk(
   "fetchListSeat",
@@ -8,6 +9,7 @@ export const fetchListSeat = createAsyncThunk(
       const result = await api.get(
         `QuanLyDatVe/LayDanhSachPhongVe?MaLichChieu=${id}`
       );
+
       return result.data.content;
     } catch (error) {
       return rejectWithValue(error);
@@ -18,11 +20,28 @@ const initialState = {
   loading: false,
   data: null,
   error: null,
+  listSeatSelected: [],
+};
+
+const findIndexSeat = (data, numberSeat) => {
+  return data.findIndex((seat) => seat.tenGhe === numberSeat);
 };
 const ListSeatSlice = createSlice({
   name: "ListSeatSlice",
   initialState,
-  reducers: {},
+  reducers: {
+    setSeatSelected: (state, action) => {
+      const { payload } = action;
+      const index = findIndexSeat(state.listSeatSelected, payload.tenGhe);
+      const listSeatSelectedClone = [...state.listSeatSelected];
+      if (index !== -1) {
+        listSeatSelectedClone.splice(index, 1);
+      } else {
+        listSeatSelectedClone.push(payload);
+      }
+      state.listSeatSelected = listSeatSelectedClone;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchListSeat.pending, (state) => {
@@ -38,4 +57,5 @@ const ListSeatSlice = createSlice({
       });
   },
 });
+export const { setSeatSelected } = ListSeatSlice.actions;
 export default ListSeatSlice.reducer;

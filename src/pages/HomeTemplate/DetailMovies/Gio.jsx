@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function Gio({ hours }) {
   return (
-    <div className="">
+    <div >
       <Link
         to={`/chitietphongve/${hours.maLichChieu}`}
         className="text-green-500"
