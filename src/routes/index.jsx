@@ -4,6 +4,8 @@ import HomePage from "../pages/HomeTemplate/HomePage";
 import Phim from "../pages/HomeTemplate/Phim";
 import DetailMovies from "../pages/HomeTemplate/DetailMovies";
 import DatVe from "../pages/HomeTemplate/DetailRoom";
+import DangNhap from "../pages/HomeTemplate/DangNhap";
+import DangKy from "../pages/HomeTemplate/DangKy";
 const routes = [
   {
     path: "",
@@ -25,6 +27,11 @@ const routes = [
         path: "chitietphongve/:id",
         element: DatVe,
       },
+      {
+        path: "dang-nhap",
+        element: DangNhap,
+      },
+      { path: "dang-ky", element: DangKy },
     ],
   },
 ];

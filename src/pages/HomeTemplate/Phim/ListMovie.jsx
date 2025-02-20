@@ -1,26 +1,25 @@
 import React from "react";
 import { Link } from "react-router-dom";
+
 export default function ListMovie({ movies }) {
   return (
-    <div>
-      <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+    <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden dark:bg-gray-800 dark:border-gray-700 transition-transform transform hover:scale-105">
+      <a href="#">
+        <img
+          className="w-full h-56 object-cover rounded-t-lg"
+          src={movies.hinhAnh}
+          alt={movies.tenPhim}
+        />
+      </a>
+      <div className="p-5 text-center">
         <a href="#">
-          <img
-            className="w-full h-52 object-contain rounded-t-lg"
-            src={movies.hinhAnh}
-            alt=""
-          />
+          <h5 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
+            {movies.tenPhim}
+          </h5>
         </a>
-        <div className="p-5 flex-grow flex items-center justify-center">
-          <a href="#">
-            <h5 className="text-xl font-bold text-gray-900 dark:text-white text-center">
-              {movies.tenPhim}
-            </h5>
-          </a>
-        </div>
         <Link
           to={`/detail/${movies.maPhim}`}
-          className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+          className="inline-block w-full text-center text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 transition-colors dark:bg-green-500 dark:hover:bg-green-600 dark:focus:ring-green-800"
         >
           Xem chi tiết
         </Link>

@@ -7,20 +7,28 @@ import { fetchListSeat } from "./sliceBooking";
 export default function DatVe() {
   const state = useSelector((state) => state.ListSeatReducer);
   const { data } = state;
+  console.log(data);
 
   const { id } = useParams;
-  console.log(id);
+
   const dispatch = useDispatch();
+  
   useEffect(() => {
     dispatch(fetchListSeat(id));
   }, []);
 
   const renderRow = () => {
+    if (!data || !data.danhSachGhe) return null; // Kiểm tra dữ liệu trước khi render
+
     return (
-      <div className="space-x-10">
-        <span>A</span>
-        {data?.danhSachGhe.map((seat) => (
-          <button key={seat.maGhe}>{seat.tenGhe}</button>
+      <div className="flex gap-4 flex-wrap">
+        {data.danhSachGhe.map((item) => (
+          <button
+            key={item.maGhe}
+            className="px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300"
+          >
+            {item.tenGhe}
+          </button>
         ))}
       </div>
     );
