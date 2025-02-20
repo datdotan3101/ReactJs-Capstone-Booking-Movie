@@ -17,7 +17,7 @@ export default function DetailMovies() {
   const { data } = state;
   const { id, maHeThongRap } = useParams();
 
-  console.log("Mã hệ thống rạp:", maHeThongRap);
+  // console.log("Mã hệ thống rạp:", maHeThongRap);
 
   const dispatch = useDispatch();
 
@@ -30,7 +30,7 @@ export default function DetailMovies() {
 
   const stateListLogo = useSelector((state) => state.ListLogoReducer);
   const renderListLogo = () => {
-    const { data } = stateListLogo;
+    const { data } = stateListLogo; 
     return data?.map((logo) => <Rap key={logo.maHeThongRap} logo={logo} />);
   };
 
