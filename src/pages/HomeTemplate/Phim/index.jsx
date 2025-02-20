@@ -6,20 +6,25 @@ import { fetchListMovies } from "./slice";
 export default function Phim() {
   const state = useSelector((state) => state.ListMoviesReducer);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(fetchListMovies());
-  }, []);
+  }, [dispatch]);
 
   const renderListMovies = () => {
-    const { data } = state;
-    return data?.map((movies) => (
-      <ListMovie key={movies.maPhim} movies={movies} />
+    return state.data?.map((movie) => (
+      <ListMovie key={movie.maPhim} movies={movie} />
     ));
   };
+
   return (
-    <div className="mt-20">
-      Phim
-      <div className="grid grid-cols-4 gap-6">{renderListMovies()}</div>
+    <div className="container mx-auto mt-16 px-4 py-8 bg-gray-900 text-white rounded-lg shadow-lg">
+      <h2 className="text-4xl font-bold text-center mb-8 uppercase tracking-wide text-indigo-400">
+        Danh Sách Phim
+      </h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        {renderListMovies()}
+      </div>
     </div>
   );
 }

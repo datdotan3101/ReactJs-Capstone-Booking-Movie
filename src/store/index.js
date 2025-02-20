@@ -5,6 +5,8 @@ import DetailMoviesReducer from "./../pages/HomeTemplate/DetailMovies/sliceThong
 import ListLogoReducer from "./../pages/HomeTemplate/DetailMovies/sliceLogoCines";
 import ListHourReducer from "./../pages/HomeTemplate/DetailMovies/sliceLich";
 import ListSeatReducer from "./../pages/HomeTemplate/DetailRoom/sliceBooking";
+import ListCumRapReducer from "./../pages/HomeTemplate/DetailMovies/sliceCumRap";
+import LogInReducer from "./../pages/HomeTemplate/DangNhap/slice";
 export const store = configureStore({
   reducer: {
     CarouselReducer,
@@ -13,5 +15,7 @@ export const store = configureStore({
     ListLogoReducer,
     ListHourReducer,
     ListSeatReducer,
+    ListCumRapReducer,
+    LogInReducer,
   },
 });
