@@ -79,16 +79,17 @@ export default function DetailMovies() {
 
   // Render danh sách giờ chiếu
   const renderHour = () => {
-    return (
-      stateHour?.data?.heThongRapChieu?.flatMap((heThong) =>
-        heThong.cumRapChieu
-          ?.filter((cumRap) => cumRap.maCumRap === selectedCumRap)
-          ?.flatMap((cumRap) =>
-            cumRap.lichChieuPhim?.map((hours) => (
-              <Gio key={hours.maLichChieu} hours={hours} />
-            ))
-          )
-      ) || null
+    if (!stateHour?.data?.heThongRapChieu)
+      return <p>Không có dữ liệu giờ chiếu.</p>;
+
+    return stateHour.data.heThongRapChieu.flatMap((heThong) =>
+      heThong.cumRapChieu
+        ?.filter((cumRap) => cumRap.maCumRap === selectedCumRap)
+        ?.flatMap((cumRap) =>
+          cumRap.lichChieuPhim?.map((hours) => (
+            <Gio key={hours.maLichChieu} hours={hours} />
+          ))
+        )
     );
   };
 

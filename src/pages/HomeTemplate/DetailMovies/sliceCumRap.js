@@ -6,8 +6,8 @@ export const fetchDanhSachCumRap = createAsyncThunk(
   async (maHeThongRap, { rejectWithValue }) => {
     try {
       const result = await api.get(
-        // `https://movienew.cybersoft.edu.vn/api/QuanLyRap/LayThongTinCumRapTheoHeThong?maHeThongRap=${maHeThongRap}`
-        "https://movienew.cybersoft.edu.vn/api/QuanLyRap/LayThongTinCumRapTheoHeThong?maHeThongRap=BHDStar"
+        `https://movienew.cybersoft.edu.vn/api/QuanLyRap/LayThongTinCumRapTheoHeThong?maHeThongRap=${maHeThongRap}`
+        // "https://movienew.cybersoft.edu.vn/api/QuanLyRap/LayThongTinCumRapTheoHeThong?maHeThongRap=BHDStar"
       );
       return result.data.content;
     } catch (error) {
